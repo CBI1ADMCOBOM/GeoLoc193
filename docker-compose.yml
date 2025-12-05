@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: geoloc193
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://geoloc_user_postgres:tWYkjxz2FCVVjEnKZIXUcKCVgPwFMBYp@172.20.0.12:5432/geoloc_bombeiros?schema=public
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - SMSGATE_USERNAME=${SMSGATE_USERNAME}
+      - SMSGATE_PASSWORD=${SMSGATE_PASSWORD}
+      - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}
+      - APP_URL=http://localhost:3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    network_mode: bridge
